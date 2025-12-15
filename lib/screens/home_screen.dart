@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import '../models/difficulty.dart';
 import 'game_screen.dart';
@@ -13,20 +15,22 @@ class HomeScreen extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0xFF12002B), Color(0xFF2B0B45)],
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/background.png'),
+                  fit: BoxFit.fill,
                 ),
               ),
               child: Column(
                 children: [
                   // Top section
                   Expanded(
-                    flex: 7,
+                    flex: 5,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 16.0,
+                      ),
                       child: Column(
                         children: [
                           const SizedBox(height: 8),
@@ -37,10 +41,10 @@ class HomeScreen extends StatelessWidget {
                                 onTap: () {},
                                 child: Container(
                                   padding: const EdgeInsets.all(8.0),
-                                  width: 40,
+                                  width: 30,
                                   height: 40,
                                   decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.12),
+                                    color: Colors.white.withOpacity(0.3),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: const Icon(
@@ -58,11 +62,27 @@ class HomeScreen extends StatelessWidget {
                                       width: 40,
                                       height: 40,
                                       decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(0.12),
+                                        color: Colors.white.withOpacity(0.3),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: const Icon(
                                         Icons.help_outline,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 12),
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white.withOpacity(0.3),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: const Icon(
+                                        Icons.share,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -74,14 +94,9 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(height: 12),
                           Expanded(
                             child: Center(
-                              child: Container(
+                              child: SizedBox(
                                 width: 200,
                                 height: 200,
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.06),
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: Colors.white12),
-                                ),
                                 child: Image.asset(
                                   'assets/images/homegrid.png',
                                   fit: BoxFit.contain,
@@ -150,13 +165,6 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: 12),
                                     _BenefitItem(
-                                      icon: Icons.psychology_outlined,
-                                      title: 'Focus & Concentration',
-                                      description:
-                                          'Improve attention span and ability to stay focused while playing strategic levels.',
-                                    ),
-                                    SizedBox(height: 12),
-                                    _BenefitItem(
                                       icon: Icons.flash_on_outlined,
                                       title: 'Quick Thinking',
                                       description:
@@ -169,6 +177,21 @@ class HomeScreen extends StatelessWidget {
                                       description:
                                           'Develop the ability to plan your moves ahead and build long-term strategies.',
                                     ),
+                                    SizedBox(height: 12),
+                                    _BenefitItem(
+                                      icon: Icons.psychology_outlined,
+                                      title: 'Hand-Eye Coordination',
+                                      description:
+                                          'Boost your reflexes and coordination for better in-game performance.',
+                                    ),
+                                    SizedBox(height: 12),
+                                    _BenefitItem(
+                                      icon: Icons.psychology_outlined,
+                                      title: 'Attention to Detail',
+                                      description:
+                                          'Boost your reflexes and coordination for better in-game performance.',
+                                    ),
+                                    SizedBox(height: 12),
                                   ],
                                 ),
                               ),
@@ -228,10 +251,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               const Text(
                 'Select Difficulty',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
@@ -275,8 +295,8 @@ class HomeScreen extends StatelessWidget {
                 difficulty == Difficulty.easy
                     ? Icons.emoji_emotions
                     : difficulty == Difficulty.medium
-                        ? Icons.psychology
-                        : Icons.whatshot,
+                    ? Icons.psychology
+                    : Icons.whatshot,
                 color: const Color(0xFF007AFF),
               ),
               const SizedBox(width: 12),
@@ -296,7 +316,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
 
 class _BenefitItem extends StatelessWidget {
   final IconData icon;

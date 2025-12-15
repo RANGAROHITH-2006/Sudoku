@@ -20,7 +20,7 @@ class GameController extends ChangeNotifier {
   bool _isPaused = false;
   bool _isNotesMode = false;
   int _hintsUsed = 0;
-  final int _maxHints = 3;
+  final int _maxHints = 30;
   Set<String> _completedLines = {}; // Track completed rows/cols/boxes
   String? _lastCompletedLine; // For animation triggering
   // Transient wrong positions: not stored on Cell and auto-cleared
@@ -237,6 +237,7 @@ class GameController extends ChangeNotifier {
 
       if (_mistakes >= 3) {
         _gameOver();
+        return; // avoid double notify (we already notified in _gameOver)
       }
     } else {
       // If it was transiently marked wrong before, clear it because user corrected
@@ -250,6 +251,7 @@ class GameController extends ChangeNotifier {
       // Check if game is won
       if (_checkWin()) {
         _gameWon();
+        return; // avoid double notify (we already notified in _gameWon)
       }
     }
 
@@ -388,6 +390,7 @@ class GameController extends ChangeNotifier {
             // Check if game is won
             if (_checkWin()) {
               _gameWon();
+              return; // avoid double notify (we already notified in _gameWon)
             }
 
             notifyListeners();
