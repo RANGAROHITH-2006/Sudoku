@@ -57,7 +57,9 @@ class HomeScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      _showHelpDialog(context);
+                                    },
                                     child: Container(
                                       width: 40,
                                       height: 40,
@@ -315,6 +317,108 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+ void _showHelpDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 28),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'How to play',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.close, color: Colors.grey[700]),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    '• Fill the grid so that each row, column, and 3×3 box contains the numbers 1 to 9.',
+                    style: TextStyle(color: Colors.grey[800]),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '• Tap a cell to select it, then use the number pad to place a number.',
+
+                    style: TextStyle(color: Colors.grey[800]),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '• Use pencil mode to jot down possible numbers in a cell.',
+                    style: TextStyle(color: Colors.grey[800]),
+                  ),
+                  const SizedBox(height: 12),
+
+                  // Controls
+                  Text(
+                    '• Undo: Revert your most recent move.',
+                    style: TextStyle(color: Colors.grey[800]),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '• Erase: Remove the selected number or notes from a cell.',
+                    style: TextStyle(color: Colors.grey[800]),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '• Hint: Reveal a correct number for a selected cell when you are stuck.',
+                    style: TextStyle(color: Colors.grey[800]),
+                  ),
+
+                  const SizedBox(height: 8),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.pop(context),
+                      style: ElevatedButton.styleFrom(
+                        
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 10.0,
+                          horizontal: 18.0,
+                        ),
+                        child: Text(
+                          'Got it',
+                          style: TextStyle(color: Colors.blueGrey),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+
 }
 
 class _BenefitItem extends StatelessWidget {

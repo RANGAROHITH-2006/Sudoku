@@ -19,6 +19,7 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   late GameController _controller;
+  bool _isDialogVisible = false;
 
   @override
   void initState() {
@@ -32,16 +33,25 @@ class _GameScreenState extends State<GameScreen> {
 
   void _onGameStateChanged() {
     if (_controller.isGameOver) {
-      _showGameOverDialog();
+      if (!_isDialogVisible) {
+        _isDialogVisible = true;
+        _showGameOverDialog().then((_) => _isDialogVisible = false);
+      }
     } else if (_controller.isGameWon) {
-      _showWinDialog();
+      if (!_isDialogVisible) {
+        _isDialogVisible = true;
+        _showWinDialog().then((_) => _isDialogVisible = false);
+      }
     } else if (_controller.isPaused) {
-      _showPauseDialog();
+      if (!_isDialogVisible) {
+        _isDialogVisible = true;
+        _showPauseDialog().then((_) => _isDialogVisible = false);
+      }
     }
   }
 
-  void _showPauseDialog() {
-    showDialog(
+  Future<void> _showPauseDialog() {
+    return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
@@ -384,8 +394,8 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  void _showGameOverDialog() {
-    showDialog(
+  Future<void> _showGameOverDialog() {
+    return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
@@ -478,8 +488,8 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  void _showWinDialog() {
-    showDialog(
+  Future<void> _showWinDialog() {
+    return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
